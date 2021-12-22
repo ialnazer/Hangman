@@ -20,6 +20,7 @@ class Hangman extends Component {
     super(props);
     this.state = { nWrong: 0, guessed: new Set(), answer: randomWord() };
     this.handleGuess = this.handleGuess.bind(this);
+    this.handleRestart = this.handleRestart.bind(this);
   }
 
   /** guessedWord: show current-state of word:
@@ -42,7 +43,11 @@ class Hangman extends Component {
       nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1)
     }));
   }
-
+  /** handleRestart
+  */
+  handleRestart() {
+    this.setState(st => ({ nWrong: 0, guessed: new Set(), answer: randomWord() }));
+  }
   /** generateButtons: return array of letter buttons to render */
   generateButtons() {
     return "abcdefghijklmnopqrstuvwxyz".split("").map((ltr, index) => (
@@ -63,7 +68,7 @@ class Hangman extends Component {
     return (
       <div className='Hangman'>
         <h1>Hangman</h1>
-        <img src={this.props.images[this.state.nWrong]} alt={`${this.state.nWrong}/${this.props.maxWrong}`}/>
+        <img src={this.props.images[this.state.nWrong]} alt={`${this.state.nWrong}/${this.props.maxWrong}`} />
         <p >Number wrong: {this.state.nWrong}</p>
         <p className='Hangman-word'>
           {!gameOver
@@ -75,6 +80,7 @@ class Hangman extends Component {
             ? this.generateButtons()
             : 'You lose'}
         </p>
+        <button onClick={this.handleRestart}>Restart</button>
       </div>
     );
   }
