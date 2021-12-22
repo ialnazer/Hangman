@@ -80,7 +80,7 @@ class Hangman extends Component {
             ? this.generateButtons()
             : 'You lose'}
         </p>
-        <button onClick={this.handleRestart}>Restart</button>
+        <button id="reset" onClick={this.handleRestart}>Restart</button>
       </div>
     );
   }
